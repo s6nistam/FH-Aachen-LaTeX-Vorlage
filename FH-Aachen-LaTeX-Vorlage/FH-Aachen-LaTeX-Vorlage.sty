@@ -1,0 +1,124 @@
+%general purpose
+\usepackage[utf8]{inputenc}
+
+% mathematical things
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{extarrows}
+\usepackage{centernot}
+
+% colours
+\usepackage[dvipsnames]{xcolor}
+
+% pretty drawings
+\usepackage{tikz}
+% for trees
+\usetikzlibrary{trees}
+\usetikzlibrary{shapes.multipart}
+
+% commutative diagram
+\usepackage{tikz-cd}
+
+% boxes for examples
+\usepackage[listings,xparse,breakable,skins]{tcolorbox}
+
+% loading different languages
+% all used languages must be loaded, the standard one last
+\usepackage[british, ngerman, american]{babel}
+
+% quotation marks
+\usepackage[babel = true]{csquotes}
+
+%for images not to be written on
+\usepackage{wrapfig}
+
+%for headers and footers
+\usepackage{fancyhdr}
+
+%layout
+\usepackage{geometry}
+
+
+%dokument layout
+\geometry{
+    left=1cm,
+    right=1cm,
+    top=2cm,
+    bottom=2cm,
+    includeheadfoot
+}
+
+
+%Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\raggedleft\includegraphics[scale=.04]{fh-logo.png}}
+\fancyfoot[L]{\@author}
+\fancyfoot[C]{\@title}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+%Define Colors
+\definecolor{fhcolor}{HTML}{02B0AB}
+\definecolor{fhcolor1}{HTML}{00A79E}
+\definecolor{fhcolor2}{HTML}{00938A}
+\definecolor{fhcolor3}{HTML}{006E67}
+
+%Title
+\def\lesson#1{\gdef\@lesson{#1}}
+\def\iliLink#1{\gdef\@iliLink{#1}}
+\renewcommand{\maketitle}{
+\makeatletter
+\centering
+{\Large\@lesson\par}
+{\huge\bfseries\color{fhcolor}{\@title}\par}
+{\large\@author\par}
+\vspace{1cm}
+\raggedright
+\hspace{-0.3cm}
+\begin{tabular}{ll}
+\ifdef{\@iliLink}{
+Ilias-Link: & \url{\@iliLink} \\ 
+}{}
+Datum: & \@date \\
+\end{tabular} \\
+\vspace{1cm}
+\makeatother
+}
+
+%Defining Environments
+%Define Section
+\renewcommand\section{
+    \@startsection {section}{1}{\z@}
+    {-3.5ex \@plus -1ex \@minus -.2ex}
+    {2.3ex \@plus.2ex}
+    {\normalfont\Large\bfseries\color{fhcolor1}}}
+\renewcommand\subsection{
+    \@startsection{subsection}{2}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\large\bfseries\color{fhcolor2}}}
+\renewcommand\subsubsection{
+    \@startsection{subsubsection}{3}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\bfseries\color{fhcolor3}}}
+
+
+%counters
+\newcounter{aufgabencounter}
+\newcounter{ideencounter}
+
+%Custom Commands
+\newcommand{\Natural}{\mathbb{N}}
+\newcommand{\Integer}{\mathbb{Z}}
+\newcommand{\Rational}{\mathbb{Q}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\aufgabe}{\addtocounter{aufgabencounter}{1} \setcounter{ideencounter}{0} \section*{Aufgabe \arabic{aufgabencounter}:}}
+\newcommand{\idee}{\addtocounter{ideencounter}{1} \subsubsection*{Idee \arabic{ideencounter}:}}
+\newcommand{\bemerke}{\addtocounter{ideencounter}{1} \subsubsection*{Bemerke \arabic{ideencounter}:}}

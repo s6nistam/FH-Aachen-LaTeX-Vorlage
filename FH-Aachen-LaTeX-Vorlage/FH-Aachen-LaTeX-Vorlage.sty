@@ -111,6 +111,7 @@ Datum: & \@date \\
 
 %counters
 \newcounter{aufgabencounter}
+\newcounter{teilaufgabencounter}
 \newcounter{ideencounter}
 
 %Custom Commands
@@ -119,6 +120,7 @@ Datum: & \@date \\
 \newcommand{\Rational}{\mathbb{Q}}
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Complex}{\mathbb{C}}
-\newcommand{\aufgabe}{\addtocounter{aufgabencounter}{1} \setcounter{ideencounter}{0} \section*{Aufgabe \arabic{aufgabencounter}:}}
+\newcommand{\aufgabe}{\addtocounter{aufgabencounter}{1} \setcounter{teilaufgabencounter}{0} \setcounter{ideencounter}{0} \section*{Aufgabe \arabic{aufgabencounter}:}}
+\newcommand{\teilaufgabe}{\addtocounter{teilaufgabencounter}{1} \setcounter{ideencounter}{0} \subsection*{\alph{teilaufgabencounter}:}}
 \newcommand{\idee}{\addtocounter{ideencounter}{1} \subsubsection*{Idee \arabic{ideencounter}:}}
 \newcommand{\bemerke}{\addtocounter{ideencounter}{1} \subsubsection*{Bemerke \arabic{ideencounter}:}}

@@ -43,18 +43,26 @@
 
 %dokument layout
 \geometry{
-    left=1cm,
-    right=1cm,
-    top=2cm,
-    bottom=2cm,
-    includeheadfoot
+    a4paper,
+    left=15mm,
+    top=5mm,
+    bottom=5mm,
+    includeheadfoot,
+    marginparwidth=5mm,
+    marginparsep=-20mm,
+    includemp
 }
+
+
+\usepackage{marginnote}
+\usepackage{everypage}
+\AddEverypageHook{\marginnote{\includegraphics[scale=.04]{fh-logo.png}}[-27mm]}
 
 
 %Header/Footer
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\raggedleft\includegraphics[scale=.04]{fh-logo.png}}
+%\fancyhead[R]{\marginpar{test \includegraphics[scale=.04]{fh-logo.png}}}
 \fancyfoot[L]{\@author}
 \fancyfoot[C]{\@title}
 \fancyfoot[R]{\thepage}

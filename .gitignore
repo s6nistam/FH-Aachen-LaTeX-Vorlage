@@ -1,0 +1,11 @@
+# output folder
+*/out/
+*/out/*
+
+# filetypes
+**.aux
+**.log
+**.pdf
+**.synctex.gz
+**.fls
+**.fdb_latexmk

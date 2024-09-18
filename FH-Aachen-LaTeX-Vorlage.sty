@@ -1,0 +1,264 @@
+% general purpose
+\usepackage[utf8]{inputenc}
+
+% mathematical things
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{extarrows}
+\usepackage{centernot}
+\usepackage{cancel}
+\usepackage{polynom} % polynomial division and horner scheme
+
+% parsing assistant
+\usepackage{xparse}
+
+% colours
+\usepackage[dvipsnames, table]{xcolor}
+
+% creating tables
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{nicematrix}
+
+% pretty drawings
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+% for trees
+\pgfplotsset{compat=newest}
+\usetikzlibrary{trees, shapes.multipart, positioning, fit, calc}
+
+% commutative diagram
+\usepackage{tikz-cd}
+
+% boxes for examples
+\usepackage[listings,xparse,breakable,skins]{tcolorbox}
+
+% loading different languages
+% all used languages must be loaded, the standard one last
+\usepackage[british, american, ngerman]{babel}
+
+% quotation marks
+\usepackage[babel]{csquotes}
+
+% for images not to be written on
+\usepackage{wrapfig}
+
+% for headers and footers
+\usepackage{fancyhdr}
+
+% layout
+\usepackage{geometry}
+
+
+% dokument layout
+\geometry{
+    a4paper,
+    left=15mm,
+    top=5mm,
+    bottom=5mm,
+    includeheadfoot,
+    marginparwidth=10mm,
+    marginparsep=-25mm,
+    includemp
+}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+% \fancyhead[R]{\marginpar{test \includegraphics[scale=.04]{fh-logo.png}}}
+\fancyfoot[L]{\@author}
+\fancyfoot[C]{\@title}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancyhead[R]{
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east, xshift=1.3mm, yshift=-8mm] at (current page.north east) {
+            \includegraphics[height=48mm]{fh-logo.png}
+        };
+    \end{tikzpicture}
+}
+
+
+% Define Colors
+% non official
+\definecolor{fhcolor}{HTML}{00B5AD}
+\definecolor{fhcolor1}{HTML}{00A79E}
+\definecolor{fhcolor2}{HTML}{00938A}
+\definecolor{fhcolor3}{HTML}{006E67}
+% official colors as published in "Styleguide_Basiselemente" as of November 2022
+\definecolor{fhmint}{HTML}{00B0AA} % FH Aachen mint
+\definecolor{fhmint1}{HTML}{009692} % FH Aachen mint dark
+\definecolor{fhmint2}{HTML}{00706D} % FH Aachen mint darker
+\definecolor{fhmint3}{HTML}{00302F} % FH Aachen mint darkest
+
+% Title
+\def\lesson#1{\gdef\@lesson{#1}}
+\def\iliLink#1{\gdef\@iliLink{#1}}
+\renewcommand{\maketitle}{
+    \makeatletter
+    \centering
+    {\Large\@lesson\par}
+    {\huge\bfseries\color{fhmint}{\@title}\par}
+    {\large\@author\par}
+    \vspace{1cm}
+    \raggedright
+    \hspace{-0.3cm}
+    \begin{tabular}{ll}
+        \ifdef{\@iliLink}{
+        Ilias-Link: & \url{\@iliLink} \\
+        }{}
+        Datum:      & \@date          \\
+    \end{tabular} \\
+    \vspace{1cm}
+    \makeatother
+}
+
+% Defining Environments
+% Define Section
+\renewcommand\section{
+    \@startsection {section}{1}{\z@}
+    {-3.5ex \@plus -1ex \@minus -.2ex}
+    {2.3ex \@plus.2ex}
+    {\normalfont\Large\bfseries\color{fhmint1}}}
+\renewcommand\subsection{
+    \@startsection{subsection}{2}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\large\bfseries\color{fhmint2}}}
+\renewcommand\subsubsection{
+    \@startsection{subsubsection}{3}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\bfseries\color{fhmint3}}}
+
+% counters
+\newcounter{aufgabencounter}
+\newcounter{teilaufgabencounter}
+\newcounter{ideencounter}
+
+% Custom commands for common number sets
+\newcommand{\Natural}{\mathbb{N}}
+\newcommand{\Integer}{\mathbb{Z}}
+\newcommand{\Rational}{\mathbb{Q}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% Custom commands for common mathematical symbols and notation
+\newcommand*{\seq}[1]{(#1_n)_{n \in \mathbb{N}}} % sequence
+\newcommand*{\compconj}[1]{\overline{#1}} % complex conjugate
+\newcommand*{\conj}[1]{\overline{#1}} % complex conjugate
+
+% Custom commands for common mathematical operators
+\DeclareMathOperator{\spn}{span} % linear span
+\DeclareMathOperator{\Kom}{Kom} % combination
+\DeclareMathOperator{\Per}{Per} % permutation
+\DeclareMathOperator{\sgn}{sgn} % signum function
+\DeclareMathOperator{\grad}{grad} % gradient
+
+% Custom commands for typesetting differentials and dx in integrals and the differential operator correctly
+\newcommand{\diff}{\mathop{}\!\mathrm{d}} % upright d for differential
+\newcommand{\dd}{\diff} % alias for \diff (upright d for differential)
+\NewDocumentCommand{\tder}{s o m m}{%
+    \IfBooleanTF{#1}{\dfrac}{\frac}%
+    {\diff\IfValueT{#2}{ˆ{#2}}#3}% num
+    {\diff #4\IfValueT{#2}{ˆ{#2}}}% den
+}
+
+% Custom commands for using mathematical sets
+% expl3 code for standardized and uniform set notation
+% Example for usage: $\set{x\suchthat a<x<b}$ or $\set[\Big]{x\suchthat a<x<b}$
+\ExplSyntaxOn
+\NewDocumentCommand{\set}{som}
+{
+    % limit the scope for \suchthat
+    \group_begin:
+    \cs_set_protected:Npn \suchthat
+    {
+        \tl_use:N \l__egreg_set_st_tl
+    }
+    \IfBooleanTF{#1}
+    {
+        \egreg_set_auto:n { #3 }
+    }
+    {
+        \egreg_set_fixed:nn { #2 } { #3 }
+    }
+    \group_end:
+}
+\tl_new:N \l__egreg_set_st_tl
+\cs_new_protected:Nn \__egreg_set_st:n
+{
+    \tl_set:Nn \l__egreg_set_st_tl { #1 }
+}
+\cs_new_protected:Nn \egreg_set_auto:n
+{
+    \__egreg_set_st:n
+    {
+        \nonscript\;
+        \middle\vert
+        \nonscript\;
+    }
+    \left\{ #1 \right\}
+}
+\cs_new_protected:Nn \egreg_set_fixed:nn
+{
+    \tl_if_novalue:nTF { #1 }
+    {
+        \__egreg_set_st:n { \mid }
+        \lbrace #2 \rbrace
+    }
+    {
+        \__egreg_set_st:n
+        { \mathrel{#1\vert} }
+        \mathopen{#1\lbrace}
+        #2
+        \mathclose{#1\rbrace}
+    }
+}
+\ExplSyntaxOff
+
+% Custom commands for exercises
+\newcommand{\aufgabe}{\addtocounter{aufgabencounter}{1} \setcounter{teilaufgabencounter}{0} \setcounter{ideencounter}{0} \section*{Aufgabe \arabic{aufgabencounter}:}}
+\newcommand{\teilaufgabe}{\addtocounter{teilaufgabencounter}{1} \setcounter{ideencounter}{0} \subsection*{\alph{teilaufgabencounter}:}}
+\newcommand{\idee}{\addtocounter{ideencounter}{1} \subsubsection*{Idee \arabic{ideencounter}:}}
+\newcommand{\bemerke}{\addtocounter{ideencounter}{1} \subsubsection*{Bemerke \arabic{ideencounter}:}}
+\newcommand{\wissen}{\addtocounter{ideencounter}{1} \subsubsection*{Wissen \arabic{ideencounter}:}}
+
+% Misc custom commands
+\newcommand{\ol}{\overline} %\ol = overline
+\newcommand*{\contra}{\scalebox{2}{$\lightning$}} % contradiction symbol
+
+% Commands for aligning a single part of a multiline equation inside an align environment 
+\newcommand*{\centeq}[1]{\omit\hfil$\displaystyle#1$\hfil\ignorespaces}
+\newcommand*{\righteq}[1]{\omit\hfil$\displaystyle#1$\ignorespaces}
+\newcommand*{\lefteq}[1]{\omit$\displaystyle#1$\hfil\ignorespaces}
+
+% Custom commands for tabularx-like environments
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} % centered version of the "m" tabularx column type
+\newcolumntype{P}{p{\dimexpr\linewidth-2\tabcolsep-2\arrayrulewidth}} % centered version of the "p" tabularx column type
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % centered version of the "X" tabularx column type
+\newcolumntype{L}{>{$}Y<{$}} % math-mode version of "Y" column type
+
+% Use with caution, since most linters won't work correctly inside environments used like this
+\newcommand{\bM}{\begin{matrix}} %\bM = begin Matrix
+\newcommand{\eM}{\end{matrix}} %\eM = end Matrix
+\newcommand{\bpM}{\begin{pmatrix}} %\bpM = begin parethesies Matrix
+\newcommand{\epM}{\end{pmatrix}} %\epM = end parethesies Matrix
+\newcommand{\bdp}{\left\langle} %\bdp = begin dot product
+\newcommand{\edp}{\right\rangle} %\edp = end dot product
+\newcommand{\bn}{\left\|} %\bn = begin norm
+\newcommand{\en}{\right\|} %\en = end norm
+\newcommand{\bp}{\left(} %\bn = begin parethesies
+\newcommand{\ep}{\right)} %\en = end parethesies
+\newcommand{\lp}{\left|} %\lp = left pipe
+\newcommand{\rp}{\right|} %\rp = right pipe
